@@ -5,14 +5,14 @@ class FoodItem(
     val name : String ,
     val category : String ,
     var price : Double,
-    var quantityAvailable : Int,
+    var quantity: Int,
 )
 {
 
     var rating: Float? = null
 
 
-    fun itemDetail(){
+    fun display(){
         println("$name $id $category $price $rating")
     }
 
@@ -22,14 +22,14 @@ class FoodItem(
     }
 
     fun isAvailable() : Boolean {
-        return quantityAvailable > 0
+        return quantity > 0
     }
 
     fun updateQuantity(quantity : Int){
-        if(quantityAvailable - quantity <= 0) {
+        if(this.quantity - quantity <= 0) {
             throw Exception("Item Out of Stock")
         }
-        quantityAvailable -=  quantity
+        this.quantity -=  quantity
     }
 
 

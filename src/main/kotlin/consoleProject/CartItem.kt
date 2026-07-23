@@ -5,7 +5,7 @@ class CartItem(
     var quantity : Int
 ) {
 
-    fun displayCartItems()
+    fun display()
     {
         print("Your Cart items are")
         print("Item Name: ${foodItem.name}")
