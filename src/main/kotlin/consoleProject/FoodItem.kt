@@ -1,13 +1,14 @@
 package consoleProject
 
-import kotlin.math.E
+class FoodItem(
+    val id : String,
+    val name : String ,
+    val category : String ,
+    var price : Double,
+    var quantityAvailable : Int,
+)
+{
 
-class FoodItem{
-    val id : String = ""
-    val name : String = ""
-    val category : String = ""
-    var price : Double = 0.0
-    var quantityAvailable : Int = 0
     var rating: Float? = null
 
 
@@ -28,6 +29,7 @@ class FoodItem{
         if(quantityAvailable - quantity <= 0) {
             throw Exception("Item Out of Stock")
         }
+        quantityAvailable -=  quantity
     }
 
 
