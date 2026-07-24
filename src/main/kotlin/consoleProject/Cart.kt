@@ -3,22 +3,14 @@ package consoleProject
 import consoleProject.helpers.calculateTotal
 import consoleProject.helpers.myForEach
 
-class Cart(
+data class Cart(
     private val items: MutableList<CartItem> = mutableListOf(),
-//  val customer : Customer
-)
-{
-
+) {
 
     fun getItems() : List<CartItem> = items
 
-    fun display(){
-        print("========Cart Items=========\n")
-        items.myForEach {
-            print("Item Name: ${it.foodItem.name} \n")
-            print("Price: ${it.foodItem.price} \n")
-            print("Quantity : ${it.quantity}")
-        }
+    fun displayCart() : List<CartItem>{
+        return items
     }
 
     fun addItem(item: CartItem){

@@ -1,22 +1,33 @@
 package consoleProject
 
+import java.util.Queue
+
 class Customer(
     val name: String,
     val age: Int,
     val email: String,
     password : String,
-    val phoneName: String
+    val phoneNumber: String
 ) {
 
-    private val walletBalance : Double = 0.0
-    private val orderHistory : List<Any> = listOf<Any>()
-    private val cartHistory : List<Any> = listOf<Any>()
+    private val customerCart : Cart = Cart()
 
-    fun addMoney(){
-        // increment balance
+    private var walletBalance : Double = 0.0
+    private val orderHistory = listOf<Order>()
+//    private val cartHistory  = listOf<Cart>()
+
+
+
+    fun addMoney(walletBalance : Double){
+        this.walletBalance += walletBalance
     }
-    fun addToCart(){
-        // add item to cart
+    fun addToCart(foodItem: FoodItem , quantity : Int){
+        customerCart.addItem(CartItem(foodItem, quantity))
+        print("Item Added to Cart!")
+    }
+    fun displayCart(){
+        val items : List<CartItem>  = customerCart.displayCart()
+        items.ad
     }
     fun removeFromCart(){
         // remove item from cart

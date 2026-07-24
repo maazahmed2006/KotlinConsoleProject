@@ -6,6 +6,4 @@ fun main() {
 
     println("you have entered $input")
 
-
-    Stack
 }

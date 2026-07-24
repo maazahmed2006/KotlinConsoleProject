@@ -1,7 +1,7 @@
 package consoleProject
 
-class FoodItem(
-    val id : String,
+data class FoodItem(
+    val id : Int,
     val name : String ,
     val category : String ,
     var price : Double,
@@ -12,25 +12,18 @@ class FoodItem(
     var rating: Float? = null
 
 
-    fun display(){
-        println("$name $id $category $price $rating")
-    }
-
-    fun updatePrice(newPrice: Double){
-        price = newPrice
-        print("Price has been updated to $price")
-    }
-
-    fun isAvailable() : Boolean {
-        return quantity > 0
-    }
-
-    fun updateQuantity(quantity : Int){
-        if(this.quantity - quantity <= 0) {
-            throw Exception("Item Out of Stock")
-        }
-        this.quantity -=  quantity
+    fun displayFoodItem() {
+        println(
+            "%-5d %-25s %-15s Rs. %-10.2f %-10s Stock: %-3d".format(
+                id,
+                name,
+                category,
+                price,
+                rating ?: "N/A",
+                quantity
+            )
+        )
     }
 
 
-    }
+}
