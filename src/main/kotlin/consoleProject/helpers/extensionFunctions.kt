@@ -16,3 +16,12 @@ fun  List<CartItem>.calculateTotal() : Double{
     }
     return  total
 }
+
+fun repeatUntilExit(block: ()-> Unit) {
+    do{
+        block()
+        print("\nDo you want to continue ? y/n : ")
+        val choice: Char = readln().first()
+
+    }while (choice == 'Y' || choice == 'y')
+}

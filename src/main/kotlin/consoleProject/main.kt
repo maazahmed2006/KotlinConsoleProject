@@ -1,5 +1,7 @@
 package consoleProject
 
+import consoleProject.helpers.repeatUntilExit
+
 
 fun main(){
 
@@ -19,18 +21,16 @@ fun main(){
     val name = readln()
     print("\nEnter your password : ")
     val password = readln()
-    print("\nEnter your age : ")
-    val age = readln().toInt()
     print("\nEnter your email : ")
     val email = readln()
     print("\nEnter your Phone Number : ")
     val phoneNumber = readln()
 
-    val customer : Customer = Customer(
-        customerName = "Maaz",
-        customerEmail = "aaasasasa",
-        password = "afdrsc",
-        phoneNumber = "03335568"
+    val customer = Customer(
+        customerName = name,
+        customerEmail = email,
+        password = password,
+        phoneNumber = phoneNumber
     )
 
     customer.logIn()
@@ -58,26 +58,26 @@ fun main(){
     }while(input)
 
 }
-fun createUser(){
 
-}
 
 fun displayMainMenu() {
 
-    println("====================================================")
-    println("              FOODIES MAIN MENU")
-    println("====================================================")
-    println("1. View Menu")
-    println("2. Add Item to Cart")
-    println("3. View Cart")
-    println("4. Remove Item from Cart")
-    println("5. Clear Cart")
-    println("6. Add Money to Wallet")
-    println("7. Checkout")
-    println("8. View Order History")
-    println("9. Exit")
-    println("====================================================")
-    println("Enter your choice: ")
+    println("""
+    ====================================================
+                  FOODIES MAIN MENU
+    ====================================================
+    1. View Menu
+    2. Add Item to Cart
+    3. View Cart
+    4. Remove Item from Cart
+    5. Clear Cart
+    6. Add Money to Wallet
+    7. Checkout
+    8. View Order History
+    9. Exit
+    ====================================================
+    Enter your choice:
+    """)
 }
 
 fun viewMenu(foodItem: List<FoodItem>){
@@ -97,8 +97,8 @@ fun viewMenu(foodItem: List<FoodItem>){
 
 
 fun addToCart(listOfFoodItem: List<FoodItem>, customer: Customer)  {
-    do{
-        var input = true
+
+    repeatUntilExit{
         try {
             viewMenu(listOfFoodItem)
             print("\nSelect your Choice: ")
@@ -107,19 +107,13 @@ fun addToCart(listOfFoodItem: List<FoodItem>, customer: Customer)  {
             if (choice > listOfFoodItem.size) {
                 print("Choice is Not Valid!")
             } else {
-                val foodItem: FoodItem = listOfFoodItem[choice-1]
+                val foodItem: FoodItem = listOfFoodItem[choice - 1]
                 print("Enter the quantity: ")
                 val quantity: Int = readln().toInt()
 
                 if (quantity <= listOfFoodItem[choice].quantity) {
                     customer.addToCart(foodItem, quantity)
                     foodItem.quantity -= quantity
-                    print("\nDo you want to another order? y/n : ")
-                    val choice: Char = readln().first()
-
-                    if (choice == 'N' || choice == 'n') {
-                        input = false
-                    }
 
                 } else {
                     print("Item is out of Stock!")
@@ -128,27 +122,23 @@ fun addToCart(listOfFoodItem: List<FoodItem>, customer: Customer)  {
         } catch (_: NumberFormatException) {
             print("Please Enter a Valid Choice")
         }
-    }while(input)
+    }
 }
 
 
 fun removeItemFromCart(customer: Customer) {
-    do{
-        var option = true
+
+    repeatUntilExit{
         try {
             customer.displayCart()
             print("\nEnter the item number to remove: ")
             val input = readln().toInt()
-            customer.removeFromCart(input)
-            print("\nDo you want to remove another item: y/n")
-            val choice: Char = readln().first()
-            if (choice == 'N' || choice == 'n') {
-                option = false
-            }
+            customer.removeFromCart(input-1)
         } catch (_: NumberFormatException) {
             println("Please enter a valid number.")
         }
-    }while(option)
+    }
+
 }
 
 fun clearCart(customer: Customer){

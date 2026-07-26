@@ -17,16 +17,19 @@ class Cart(
     }
 
     fun removeItem(itemNo : Int){
-        if(itemNo < 1 || itemNo >= items.size)
-            throw Exception ("Invalid Item Number")
+        if(itemNo < 0 || itemNo >= items.size){
+          throw NumberFormatException("Invalid item number")
+        }
 
         items.removeAt(itemNo-1)
         print("Item No: $itemNo removed\n")
     }
 
     fun clearCart(){
-        if(items.isEmpty())
-            throw Exception ("Cart is Empty\n")
+        if(items.isEmpty()){
+            print("Cart is Empty\n")
+            return
+        }
 
         items.clear()
         print("Cart is Cleared\n")

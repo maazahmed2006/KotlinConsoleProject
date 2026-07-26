@@ -8,7 +8,7 @@ abstract class User(
 ) {
 
     fun logIn(){
-        print("You are Logged in with email: $email")
+        print("You are Logged in with email: $email\n")
     }
     fun logOut() {
         println("You are Logged Out")

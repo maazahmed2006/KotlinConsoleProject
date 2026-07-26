@@ -33,6 +33,10 @@ class Customer(
 
     fun displayCart() {
         val items : List<CartItem> = customerCart.getCart()
+        if(items.isEmpty()) {
+            throw Exception ("No items are added ")
+        }
+
         print("No.   Item Name                 Quantity        Price\n")
         items.myForEach {
                 println(
@@ -47,6 +51,7 @@ class Customer(
     }
 
     fun removeFromCart(choice : Int){
+
         customerCart.removeItem(choice)
     }
 
@@ -55,22 +60,21 @@ class Customer(
     }
 
     fun checkOut() {
-
         if (customerCart.getCart().isEmpty()) {
-            println("Your cart is empty!")
+            print("Your cart is empty!\n")
             return
         }
 
         val total = customerCart.calculateTotal()
 
-        println("====================================")
-        println("Total Amount: Rs. $total")
+        print("====================================\n")
+        print("Total Amount: Rs. $total\n")
         print("Confirm Order (Y/N): ")
 
         val choice = readln().first()
 
         if (choice != 'Y' && choice != 'y') {
-            println("Order Cancelled.")
+            print("Order Cancelled.\n")
             return
         }
 
@@ -87,8 +91,8 @@ class Customer(
         order.displayOrder()
         customerCart.clearCart()
 
-        println("====================================")
-        println("Order Placed Successfully!")
+        print("====================================\n")
+        print("Order Placed Successfully!")
     }
 
 
