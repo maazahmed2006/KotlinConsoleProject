@@ -3,8 +3,8 @@ package consoleProject
 import consoleProject.helpers.calculateTotal
 import consoleProject.helpers.myForEach
 
-class Order(
-    val id : Int,
+data class Order(
+    val id : Int = 0,
     val customer : Customer,
     val items : List<CartItem>,
     val orderDate: String,
@@ -17,8 +17,10 @@ class Order(
 
     fun displayOrder() {
         print("============ORDER DETAILS==============")
+        print("Order Id: $id")
         print("Customer: ${customer.name}")
         print("Date: $orderDate")
+        print("Time: ")
 
         print("Items:\n")
 

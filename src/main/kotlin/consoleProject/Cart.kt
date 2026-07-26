@@ -3,13 +3,12 @@ package consoleProject
 import consoleProject.helpers.calculateTotal
 import consoleProject.helpers.myForEach
 
-data class Cart(
+class Cart(
     private val items: MutableList<CartItem> = mutableListOf(),
 ) {
 
-    fun getItems() : List<CartItem> = items
 
-    fun displayCart() : List<CartItem>{
+    fun getCart() : List<CartItem>{
         return items
     }
 
@@ -18,7 +17,6 @@ data class Cart(
     }
 
     fun removeItem(itemNo : Int){
-
         if(itemNo < 1 || itemNo >= items.size)
             throw Exception ("Invalid Item Number")
 
@@ -27,7 +25,11 @@ data class Cart(
     }
 
     fun clearCart(){
+        if(items.isEmpty())
+            throw Exception ("Cart is Empty\n")
+
         items.clear()
+        print("Cart is Cleared\n")
     }
 
     fun calculateTotal() : Double {

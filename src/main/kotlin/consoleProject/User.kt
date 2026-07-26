@@ -1,12 +1,11 @@
 package consoleProject
 
 abstract class User(
-    val id : Int,
     val name : String,
     val email : String,
     val phone: String,
     private val password: String
-    ) {
+) {
 
     fun logIn(){
         print("You are Logged in with email: $email")

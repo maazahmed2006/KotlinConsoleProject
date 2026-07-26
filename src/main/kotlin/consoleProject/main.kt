@@ -1,7 +1,5 @@
 package consoleProject
 
-import consoleProject.helpers.myForEach
-
 
 fun main(){
 
@@ -15,29 +13,28 @@ fun main(){
 
     print("Welcome to Foodies\n")
 
-//    print("=========Enter your Customer Credentials============ ")
-//
-//    print("\nEnter your Username : ")
-//    val name = readln()
-//    print("\nEnter your password : ")
-//    val password = readln()
-//    print("\nEnter your age : ")
-//    val age = readln().toInt()
-//    print("\nEnter your email : ")
-//    val email = readln()
-//    print("\nEnter your Phone Number : ")
-//    val phoneNumber = readln()
+    print("=========Enter your Customer Credentials============ ")
+
+    print("\nEnter your Username : ")
+    val name = readln()
+    print("\nEnter your password : ")
+    val password = readln()
+    print("\nEnter your age : ")
+    val age = readln().toInt()
+    print("\nEnter your email : ")
+    val email = readln()
+    print("\nEnter your Phone Number : ")
+    val phoneNumber = readln()
 
     val customer : Customer = Customer(
-        name = "Maaz",
-        age = 29,
-        email = "aaasasasa",
+        customerName = "Maaz",
+        customerEmail = "aaasasasa",
         password = "afdrsc",
         phoneNumber = "03335568"
     )
 
-    print("===============================CUSTOMER CREATED======================================\n")
-
+    customer.logIn()
+    print("===============================CUSTOMER LOGGED IN======================================\n")
 
     do
     {
@@ -46,11 +43,12 @@ fun main(){
         try{
             val choice : Int = readln().toInt()
             when(choice){
-                1 -> viewMenu(listOfFoodItem)
-                2 -> addToCart(listOfFoodItem, customer)
-                3-> viewCart {
-                    customer.displayCart()
-                }
+                1   -> viewMenu(listOfFoodItem)
+                2   -> addToCart(listOfFoodItem, customer)
+                3   -> customer.displayCart()
+                4   -> removeItemFromCart(customer)
+                5   -> clearCart(customer)
+                7   -> checkOut(customer)
             }
 
         }catch(_ : NumberFormatException){
@@ -60,6 +58,10 @@ fun main(){
     }while(input)
 
 }
+fun createUser(){
+
+}
+
 fun displayMainMenu() {
 
     println("====================================================")
@@ -80,49 +82,87 @@ fun displayMainMenu() {
 
 fun viewMenu(foodItem: List<FoodItem>){
     foodItem.forEach {
-        it.displayFoodItem()
+        println(
+            "%-5d %-25s %-15s Rs. %-10.2f %-10s Stock: %-3d".format(
+                it.id,
+                it.name,
+                it.category,
+                it.price,
+                it.rating ?: "N/A",
+                it.quantity
+            )
+        )
     }
 }
-// we can simply pass a single object here as well
-// we have to implement it here
+
+
 fun addToCart(listOfFoodItem: List<FoodItem>, customer: Customer)  {
-    try {
-        displayMainMenu()
-        print("\nSelect your Choice: ")
-        val choice: Int = readln().toInt()
+    do{
+        var input = true
+        try {
+            viewMenu(listOfFoodItem)
+            print("\nSelect your Choice: ")
+            val choice: Int = readln().toInt()
 
-        if (choice > listOfFoodItem.size)
-            print("Choice is Not Valid!")
-        else {
-            val foodItem: FoodItem = listOfFoodItem[choice]
-            print("Enter the quantity: ")
-            val quantity: Int = readln().toInt()
-
-            if (quantity <= listOfFoodItem[choice].quantity) {
-                customer.addToCart(foodItem, quantity)
-                foodItem.quantity -= quantity
-                print("\nDo you want to another order? y/n : ")
-                val choice : Char = readln().first()
-
-//                if(choice == 'N' || choice == 'n'){
-//                }
-
+            if (choice > listOfFoodItem.size) {
+                print("Choice is Not Valid!")
             } else {
-                print("Item is out of Stock!")
+                val foodItem: FoodItem = listOfFoodItem[choice-1]
+                print("Enter the quantity: ")
+                val quantity: Int = readln().toInt()
+
+                if (quantity <= listOfFoodItem[choice].quantity) {
+                    customer.addToCart(foodItem, quantity)
+                    foodItem.quantity -= quantity
+                    print("\nDo you want to another order? y/n : ")
+                    val choice: Char = readln().first()
+
+                    if (choice == 'N' || choice == 'n') {
+                        input = false
+                    }
+
+                } else {
+                    print("Item is out of Stock!")
+                }
             }
+        } catch (_: NumberFormatException) {
+            print("Please Enter a Valid Choice")
         }
-    }
-    catch (_: NumberFormatException) {
-        print("Please Enter a Valid Choice")
-    }
-}
-
-fun viewCart(block: () -> Unit ){
-    block()
-
+    }while(input)
 }
 
 
+fun removeItemFromCart(customer: Customer) {
+    do{
+        var option = true
+        try {
+            customer.displayCart()
+            print("\nEnter the item number to remove: ")
+            val input = readln().toInt()
+            customer.removeFromCart(input)
+            print("\nDo you want to remove another item: y/n")
+            val choice: Char = readln().first()
+            if (choice == 'N' || choice == 'n') {
+                option = false
+            }
+        } catch (_: NumberFormatException) {
+            println("Please enter a valid number.")
+        }
+    }while(option)
+}
+
+fun clearCart(customer: Customer){
+    print("Clearing Cart will cause all the items to be deleted.\n Are you sure you want to delete: y/n: ")
+    val choice = readln().first()
+    if(choice == 'y' || choice == 'Y')
+        customer.clearCart()
+}
+
+
+fun checkOut(customer: Customer){
+    customer.displayCart()
+    customer.checkOut()
+}
 
 
 

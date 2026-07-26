@@ -3,7 +3,7 @@ package consoleProject.helpers
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-fun getData() : String {
+fun getDate() : String {
 
     val date: LocalDateTime = LocalDateTime.now()
     val dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
