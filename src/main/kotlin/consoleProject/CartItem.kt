@@ -6,10 +6,4 @@ data class CartItem(
 ) {
 
 
-    fun calculateSubTotal() : Double{
-       return foodItem.price * quantity
-    }
-
-
-
 }

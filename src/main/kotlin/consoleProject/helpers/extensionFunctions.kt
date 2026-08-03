@@ -12,7 +12,7 @@ fun <T> List<T>.myForEach(block: (T) -> Unit) {
 fun  List<CartItem>.calculateTotal() : Double{
     var total = 0.0
     for (item in this){
-        total += item.calculateSubTotal()
+        total += item.foodItem.price * item.quantity
     }
     return  total
 }

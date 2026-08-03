@@ -75,6 +75,7 @@ class Customer(
 
         if (choice != 'Y' && choice != 'y') {
             print("Order Cancelled.\n")
+
             return
         }
 
@@ -85,6 +86,8 @@ class Customer(
             orderDate = getDate(),
             orderTime = getTime()
         )
+
+
 
         order.updateStatus(Status.CONFIRMED)
         orderHistory.add(order)
